@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+in database.yml file
+Edit your db password in default
+then run your migrations
+----------
+uncomment  this line in routes file # get '/pull_data', to: 'grades#pull_data'
 
-Things you may want to cover:
+in grades_controller edit seat_number scopes you want to fetch
+run server
+send a get request to 'grades/pull_data'
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
