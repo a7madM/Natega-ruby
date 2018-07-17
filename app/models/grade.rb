@@ -1,6 +1,5 @@
 class Grade < ApplicationRecord
-  scope :top, -> { where('OrderSchool = 4') }
-
+  
   scope :bio, -> { where('Biology > 0') }
   scope :math, -> { where('Math2 > 0') }
   scope :adapy, -> { where('History > 0') }
@@ -10,6 +9,7 @@ class Grade < ApplicationRecord
   scope :girls, -> { where(School:"أجهـور الكبرى الثانويه بنات") }
   scope :boys, -> { where(School: "اجهور الكبرى الثانويه بنين") }
 
+  
   scope :uncategorized, -> { where('Biology < 0 and Math2 < 0 and History < 0') }
   scope :order_school, -> { order('OrderSchool ASC') }
   scope :order_degree, -> { order('TotalDegree DESC') }

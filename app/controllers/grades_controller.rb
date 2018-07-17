@@ -19,7 +19,7 @@ class GradesController < ApplicationController
     math = Grade.math.order_degree.limit(5).to_a
     bio = Grade.bio.order_degree.limit(5).to_a
     
-    render json: { bio: bio, math: math, adapy: adapy }, status: :ok
+    render json: { }, status: :ok
   end
 
   def bio
