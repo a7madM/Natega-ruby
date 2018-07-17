@@ -5,13 +5,21 @@ class GradesController < ApplicationController
   require 'json'
 
   def index
-    grades = Grade.all
+    grades = Grade.all.order_degree
     render json: { count: grades.length, data: grades }, status: :ok
   end
 
+  def show
+    grade = Grade.find_by(SeatNumber: params[:id])
+    render json: { data: grade }, status: :ok
+  end
+
   def top
-    grades = Grade.max.where('SeatNumber > 427330').limit(10)
-    render json: { count: grades.length, data: grades }, status: :ok
+    adapy = Grade.adapy.order_degree.limit(5).to_a
+    math = Grade.math.order_degree.limit(5).to_a
+    bio = Grade.bio.order_degree.limit(5).to_a
+    
+    render json: { bio: bio, math: math, adapy: adapy }, status: :ok
   end
 
   def bio
@@ -54,25 +62,5 @@ class GradesController < ApplicationController
   def boysfailed
     grades = Grade.failed.boys.order_degree.order_school
     render json: { count: grades.length, data: grades }, statuse: :ok
-  end
-
-  def pull_data
-    pull_grades_data
-    render json: { data: data }, start: :ok
-  end
-
-  private
-
-  def pull_grades_data(seat_number = 427_360)
-    data = []
-    (seat_number..seat_number + count).each do |seat|
-      url = URI('http://natega.youm7.com/Home/GetResultStage1/')
-      response = Net::HTTP.post_form(url, 'SeatNumber' => seat)
-      record = JSON.parse(response.read_body)
-      record = Hash[*record]
-      grade = Grade.new(record)
-      grade.save
-      data << grade
-    end
   end
 end

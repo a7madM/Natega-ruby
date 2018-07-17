@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resources :grades do
     collection do
-      #      get '/pull_data', to: 'grades#pull_data'
       get '/grades', to: 'grades#index'
+      get '/top', to: 'grades#top'
       get '/bio', to: 'grades#bio'
       get '/math', to: 'grades#math'
       get '/adapy', to: 'grades#adapy'
